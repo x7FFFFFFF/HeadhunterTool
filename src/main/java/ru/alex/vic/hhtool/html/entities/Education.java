@@ -5,7 +5,17 @@ public class Education {
     private  String caption;
     private  String department;
     private  String specialization;
-    private   int finished;
+    /**
+     * class="bloko-link bloko-link_list"
+     */
+    @HtmlAttribute(attrName = "class", attrValue = "bloko-link bloko-link_list", valFromAttr = "href")
+    private String internalId;
+
+    @HtmlAttribute(attrName = "class", attrValue = "bloko-column bloko-column_s-2 bloko-column_m-2 bloko-column_l-2")
+    private  int finished;
+
+    public Education() {
+    }
 
     public Education(String city, String caption, String department, String specialization, int finished) {
         this.city = city;
@@ -53,5 +63,13 @@ public class Education {
 
     public void setFinished(int finished) {
         this.finished = finished;
+    }
+
+    public String getInternalId() {
+        return internalId;
+    }
+
+    public void setInternalId(String internalId) {
+        this.internalId = internalId;
     }
 }

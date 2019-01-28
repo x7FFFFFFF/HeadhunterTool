@@ -3,6 +3,7 @@ package ru.alex.vic.hhtool.html;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
+import ru.alex.vic.hhtool.html.entities.Education;
 import ru.alex.vic.hhtool.html.entities.Employee;
 import ru.alex.vic.hhtool.html.entities.Sex;
 
@@ -15,10 +16,10 @@ import java.util.stream.Collectors;
 public class HtmlParserTest {
 
     @Test
-    public void parse() {
+    public void parse() throws Exception {
 
         final String content = getContent(getClass(), "employee1.html");
-        final Employee employee = HtmlParser.parse(content);
+        final Employee employee = HtmlParser.parse(content, Employee.class);
         Assert.assertEquals(26, employee.getAge());
         Assert.assertEquals(Sex.MALE, employee.getSex());
         Assert.assertEquals("Москва", employee.getCity());
@@ -29,6 +30,13 @@ public class HtmlParserTest {
         Assert.assertEquals(1, birth.getDayOfMonth());
 
 
+        final Education education = employee.getEducations().iterator().next();
+
+        Assert.assertEquals("Долгопрудный", education.getCity());
+        Assert.assertEquals("Московский физико-технический институт (Государственный университет)", education.getCaption());
+        Assert.assertEquals("Общей и прикладной физики", education.getDepartment());
+        Assert.assertEquals( "Прикладная физика и математека", education.getSpecialization());
+
     }
 
     private String getContent(Class<?> clz, String name) {
@@ -36,7 +44,7 @@ public class HtmlParserTest {
             return new BufferedReader(new InputStreamReader(is, "UTF-8"))
                     .lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
-          throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 }

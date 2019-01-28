@@ -3,14 +3,15 @@ package ru.alex.vic.hhtool.html.entities;
 import org.joda.time.LocalDate;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 
 public class Employee {
 
 
-    public static final String ITEMPROP = "itemprop";
-    public static final String DATA_QA = "data-qa";
-    @HtmlAttribute(attrName = "itemprop", attrValue = "gender")
+    private static final String ITEMPROP = "itemprop";
+    private static final String DATA_QA = "data-qa";
+    @HtmlAttribute(attrName = "itemprop", attrValue = "gender", converter = Converter.GENDER)
     private Sex sex;
 
     private String vacancy;
@@ -32,9 +33,18 @@ public class Employee {
     private String station;
 
     private String link;
-    private List<Education> educations;
+
+    /**
+     * data-qa="resume-block-education"
+     */
+    @HtmlAttribute(attrName = DATA_QA, attrValue = "resume-block-education", converter = Converter.EDUCATION)
+    private Collection<Education> educations;
+
     private byte[] foto;
     private byte[] source;
+
+    public Employee() {
+    }
 
     public Employee(Sex sex, String vacancy, int age, LocalDate birth, String city, String station, String link, List<Education> educations, byte[] foto,
                     byte[] source, BigDecimal salary) {
@@ -99,11 +109,11 @@ public class Employee {
         this.station = station;
     }
 
-    public List<Education> getEducations() {
+    public Collection<Education> getEducations() {
         return educations;
     }
 
-    public void setEducations(List<Education> educations) {
+    public void setEducations(Collection<Education> educations) {
         this.educations = educations;
     }
 
