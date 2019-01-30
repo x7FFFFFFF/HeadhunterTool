@@ -2,28 +2,29 @@ package ru.alex.vic.vk;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("vk")
+
+@ConfigurationProperties(prefix = "vk")
 public class VkConfig {
 
-    private String id;
-    private String client_secret;
+    private int userId;
+    private String accessToken;
 
     public VkConfig() {
     }
 
-    public String getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getClient_secret() {
-        return client_secret;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setClient_secret(String client_secret) {
-        this.client_secret = client_secret;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }
